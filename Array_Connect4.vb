@@ -101,8 +101,9 @@ Module Module1
                 End Select
             Loop
 
-            Console.Clear()
             wincheck()
+            Console.Clear()
+
 
             For i = 1 To 7
                 selrow(i) = ""
@@ -258,9 +259,8 @@ Module Module1
         Next
     End Sub
     Sub win()
-        Console.WriteLine(currplayer & " won!")
-        Console.WriteLine("Turns taken: " & (turns + 1))
-        Console.ReadKey()
+        MsgBox(currplayer & " won!" & vbCrLf & "Turns taken: " & (turns + 1))
+        'Console.ReadKey()
         End
     End Sub
 
