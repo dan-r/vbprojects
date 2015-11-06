@@ -1,23 +1,29 @@
 Module Module1
-    Dim table(6, 7) As String
-    Dim selrow(7) As String
-    Dim key As ConsoleKeyInfo
-    Dim selrowindex As Integer = 1
-    Dim turns As Integer = 1
-    Dim currplayer As String = "X"
+    Dim table(6, 7) As String ' Stores the game grid
+    Dim selrow(7) As String ' Floating X/O row storage
+    Dim key As ConsoleKeyInfo ' Key pressed (L/R/D)
+    Dim selrowindex As Integer = 1 ' Floating X/O position
+    Dim turns As Integer = 1 ' Current turn
+    Dim currplayer As String = "X" ' Starting player
     Sub Main()
         Do
-
+            ' Column number labels
             Console.ForegroundColor = ConsoleColor.Red
+            ' Leaves a line empty for floating X/O later
             Console.WriteLine("      1   2   3   4   5   6   7" & vbCrLf & vbCrLf & "    ---------------------------")
 
+            ' Loops for each row
             For i = 1 To 6
                 Console.ForegroundColor = ConsoleColor.Red
+                ' Prints row labels
                 Console.Write((" " & i & " ").PadRight(4, " "))
+                ' Loops for each column
                 For x = 1 To 7
                     Console.ForegroundColor = ConsoleColor.Gray
+                    ' Vertical seperators
                     Console.Write("|")
 
+                    ' Colour text based on side
                     If table(i, x) = "X" Then
                         Console.ForegroundColor = ConsoleColor.DarkYellow
                     Else
@@ -28,13 +34,17 @@ Module Module1
                     Console.ForegroundColor = ConsoleColor.Gray
 
                 Next
+                ' Horizontal seperators
                 Console.WriteLine(vbCrLf & "    ---------------------------")
 
             Next
             selrow(selrowindex) = currplayer
-            Console.WriteLine("Turns: " & turns)
+
+            ' Prints current turn
+            Console.WriteLine("Turn " & turns)
 
             Do
+                ' Moves back up to empty line/start of line
                 Console.SetCursorPosition(4, 1)
 
 
@@ -50,6 +60,8 @@ Module Module1
 
 
                 Next
+
+                ' Reacts to left/right/down arrows
                 key = Console.ReadKey
                 Dim validsel As Boolean = False
                 Select Case key.Key
@@ -109,6 +121,7 @@ Module Module1
 
     End Sub
     Sub turn(player, col)
+        ' Player turn - keeps trying up column until empty slot
         For i = 6 To 1 Step -1
             If table(i, col) = "" Then
                 table(i, col) = player
@@ -122,7 +135,7 @@ Module Module1
         Dim streak As Integer
         Dim streakplayer As String
 
-        REM Horizontal win checking
+        ' Horizontal win checking
         For i = 1 To 6
 
             For x = 1 To 7
@@ -142,7 +155,7 @@ Module Module1
             Next
         Next
 
-        REM Vertical win check
+        ' Vertical win check
         For x = 1 To 7
 
             For i = 1 To 6
@@ -163,7 +176,7 @@ Module Module1
         Next
 
         Dim currcoords(2) As Integer
-        REM Diagonal checking
+        ' Diagonal checking
         For i = 1 To 6
 
             For x = 1 To 7
@@ -201,7 +214,7 @@ Module Module1
                     last = table(currcoords(0), currcoords(1))
                     currcoords = {currcoords(0) - 1, currcoords(1) + 1}
                 Loop
-                
+
             Next
         Next
         For i = 1 To 6
@@ -222,7 +235,7 @@ Module Module1
                     If currcoords(1) < 1 Then
                         Exit Do
                     End If
-                    
+
                     If last = table(currcoords(0), currcoords(1)) Then
                         If Not table(currcoords(0), currcoords(1)) = "" Then
                             streak += 1
