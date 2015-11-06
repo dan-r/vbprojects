@@ -77,7 +77,7 @@ Module Module1
                                 validsel = True
                             Else
                                 validsel = False
-                                selrowindex -= 1
+                                selrowindex -= 2
                             End If
                             selrow(selrowindex) = currplayer
                         Loop Until validsel
@@ -246,6 +246,7 @@ Module Module1
     End Sub
     Sub win()
         Console.WriteLine(currplayer & " won!")
+        Console.WriteLine("Turns taken: " & (turns + 1))
         Console.ReadKey()
         End
     End Sub
